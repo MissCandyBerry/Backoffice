@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Backoffice</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container-home">
+        <!-- Header -->
+        <div class="home-header">
+            <div class="header-left">
+                <h1>Backoffice - Gestion de Proyectos</h1>
+            </div>
+            <div class="header-right">
+                <button id="addProjectBtn" class="btn btn-primary btn-lg">Agregar proyecto</button>
+                <button id="logoutBtn" class="btn btn-secondary">Cerrar sesión</button>
+            </div>
+        </div>
+
+        <!-- Panel de Proyectos -->
+        <div class="projects-panel">
+            <div class="panel-header">
+                <h2>Tus Proyectos</h2>
+                <span id="projectCount" class="project-count">0</span>
+            </div>
+            <div id="projectsList" class="projects-grid">Cargando...</div>
+        </div>
+
+        <!-- Formulario Modal -->
+        <div id="projectForm" class="project-form-container" style="display:none;">
+            <div class="project-form-modal">
+                <div class="form-modal-header">
+                    <h3 id="formTitle">Crear proyecto</h3>
+                    <button id="closeFormBtn" class="btn-close" aria-label="Cerrar formulario">✕</button>
+                </div>
+                <form class="project-form">
+                    <div class="form-group">
+                        <label for="proj-title">Título del proyecto *</label>
+                        <input 
+                            id="proj-title" 
+                            type="text"
+                            required 
+                            placeholder="Ej: Mi aplicación web"
+                            maxlength="100"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proj-desc">Descripción *</label>
+                        <textarea 
+                            id="proj-desc" 
+                            rows="4"
+                            required
+                            placeholder="Describe brevemente tu proyecto..."
+                            maxlength="500"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proj-tech">Tecnologías (separadas por coma)</label>
+                        <input 
+                            id="proj-tech" 
+                            type="text"
+                            placeholder="Ej: React, Node.js, MongoDB"
+                            maxlength="200"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proj-repo">Repositorio (URL)</label>
+                        <input 
+                            id="proj-repo" 
+                            type="url"
+                            placeholder="https://github.com/usuario/repo"
+                        />
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="saveProjectBtn" type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        <button id="cancelProjectBtn" type="button" class="btn btn-secondary btn-block">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
