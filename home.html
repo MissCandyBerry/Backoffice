@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <body>
+<<<<<<< HEAD
     <div class="container-home">
         <!-- Header -->
         <div class="home-header">
@@ -83,6 +84,45 @@
                     <div class="form-actions">
                         <button id="saveProjectBtn" type="submit" class="btn btn-primary btn-block">Guardar</button>
                         <button id="cancelProjectBtn" type="button" class="btn btn-secondary btn-block">Cancelar</button>
+=======
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Backoffice - Proyectos</h1>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button id="addProjectBtn" class="btn btn-primary">Agregar proyecto</button>
+                    <button id="logoutBtn" class="btn">Cerrar sesión</button>
+                </div>
+            </div>
+
+            <div id="projectsPanel">
+                <h2>Proyectos</h2>
+                <div id="projectsList">Cargando...</div>
+            </div>
+
+            <div id="projectForm" style="display:none;margin-top:16px;">
+                <h3 id="formTitle">Crear proyecto</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="proj-title">Título</label>
+                        <input id="proj-title" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="proj-desc">Descripción</label>
+                        <textarea id="proj-desc" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="proj-tech">Tecnologías (separadas por coma)</label>
+                        <input id="proj-tech" />
+                    </div>
+                    <div class="form-group">
+                        <label for="proj-repo">Repositorio (url)</label>
+                        <input id="proj-repo" />
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <button id="saveProjectBtn" type="submit" class="btn btn-primary">Guardar</button>
+                        <button id="cancelProjectBtn" type="button" class="btn">Cancelar</button>
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
                     </div>
                 </form>
             </div>

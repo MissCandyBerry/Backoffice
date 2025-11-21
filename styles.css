@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +17,11 @@
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
     --border-color: #334155;
+<<<<<<< HEAD
     --error: #720b32;
+=======
+    --error: #ef4444;
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
     --success: #10b981;
 }
 
@@ -22,16 +30,23 @@ body {
     background: linear-gradient(135deg, var(--background) 0%, #1e293b 100%);
     color: var(--text-primary);
     min-height: 100vh;
+<<<<<<< HEAD
     line-height: 1.6;
 }
 
 /* ======================== PAGES CENTRADAS (LOGIN, REGISTER) ======================== */
 
 body.auth-page {
+=======
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+<<<<<<< HEAD
+=======
+    line-height: 1.6;
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 }
 
 /* Container */
@@ -40,6 +55,10 @@ body.auth-page {
     max-width: 450px;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 /* Form Card */
 .form-card {
     background: var(--surface);
@@ -86,27 +105,42 @@ body.auth-page {
     color: var(--text-secondary);
 }
 
+<<<<<<< HEAD
 .form-group input,
 .form-group textarea {
+=======
+.form-group input {
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
     padding: 12px 16px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
     background: var(--background);
     color: var(--text-primary);
     font-size: 14px;
+<<<<<<< HEAD
     font-family: "Stack Sans Text", sans-serif;
     transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
+=======
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+<<<<<<< HEAD
 .form-group input::placeholder,
 .form-group textarea::placeholder {
+=======
+.form-group input::placeholder {
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
     color: #64748b;
 }
 
@@ -143,6 +177,7 @@ body.auth-page {
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
+<<<<<<< HEAD
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -152,6 +187,8 @@ body.auth-page {
 
 .btn:active {
     transform: scale(0.98);
+=======
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 }
 
 .btn-primary {
@@ -162,6 +199,7 @@ body.auth-page {
 
 .btn-primary:hover {
     transform: translateY(-2px);
+<<<<<<< HEAD
     box-shadow: 0 10px 25px rgba(182, 115, 191, 0.3);
     background: #a860b0;
 }
@@ -244,6 +282,9 @@ body.auth-page {
 .btn-close:hover {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
+=======
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 }
 
 /* Form Footer */
@@ -259,6 +300,7 @@ body.auth-page {
     font-size: 14px;
 }
 
+<<<<<<< HEAD
 /* ======================== HOME PAGE STYLES ======================== */
 
 .container-home {
@@ -569,6 +611,9 @@ body.auth-page {
     }
 }
 
+=======
+/* Responsive */
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 @media (max-width: 480px) {
     .form-card {
         padding: 30px 24px;
@@ -586,6 +631,7 @@ body.auth-page {
     .btn {
         width: 100%;
     }
+<<<<<<< HEAD
 
     .container-home {
         padding: 12px;
@@ -629,6 +675,8 @@ body.auth-page {
     .form-modal-header h3 {
         font-size: 18px;
     }
+=======
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 }
 
 @media (max-width: 360px) {
@@ -639,6 +687,7 @@ body.auth-page {
     .form-header h1 {
         font-size: 22px;
     }
+<<<<<<< HEAD
 
     .projects-grid {
         gap: 12px;
@@ -653,4 +702,6 @@ body.auth-page {
         padding: 6px 12px;
         font-size: 12px;
     }
+=======
+>>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
 }
