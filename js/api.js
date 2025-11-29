@@ -5,7 +5,7 @@ window.API = {
     const res = await fetch(`${API_BASE}${path}`, options);
     let data = {};
     try { data = await res.json(); } catch(e) { /* ignore parse errors */ }
-    if (!res.ok) throw new Error(data.message || 'API error');
+    if (! res.ok) throw new Error(data.message || 'API error');
     return data;
   },
 

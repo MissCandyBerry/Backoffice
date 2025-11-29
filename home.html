@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts. googleapis.com/css2?family=Stack+Sans+Text:wght@200.. 700&display=swap" rel="stylesheet">
 </head>
-<body>
-<<<<<<< HEAD
+<body class="auth-page">
     <div class="container-home">
         <!-- Header -->
         <div class="home-header">
             <div class="header-left">
-                <h1>Backoffice - Gestion de Proyectos</h1>
+                <h1>Backoffice - Gestión de Proyectos</h1>
             </div>
             <div class="header-right">
                 <button id="addProjectBtn" class="btn btn-primary btn-lg">Agregar proyecto</button>
@@ -29,11 +28,12 @@
                 <h2>Tus Proyectos</h2>
                 <span id="projectCount" class="project-count">0</span>
             </div>
-            <div id="projectsList" class="projects-grid">Cargando...</div>
+            <div id="projectsList" class="projects-grid">Cargando... </div>
         </div>
 
         <!-- Formulario Modal -->
         <div id="projectForm" class="project-form-container" style="display:none;">
+            <div id="formOverlay" class="project-form-overlay"></div>
             <div class="project-form-modal">
                 <div class="form-modal-header">
                     <h3 id="formTitle">Crear proyecto</h3>
@@ -81,48 +81,19 @@
                         />
                     </div>
 
+                    <div class="form-group">
+                        <label for="proj-images">Imágenes (URLs separadas por coma)</label>
+                        <input 
+                            id="proj-images" 
+                            type="text"
+                            placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg"
+                        />
+                        <small class="form-help">Ingresa URLs válidas (http/https), separadas por comas</small>
+                    </div>
+
                     <div class="form-actions">
                         <button id="saveProjectBtn" type="submit" class="btn btn-primary btn-block">Guardar</button>
                         <button id="cancelProjectBtn" type="button" class="btn btn-secondary btn-block">Cancelar</button>
-=======
-    <div class="container">
-        <div class="form-card">
-            <div class="form-header">
-                <h1>Backoffice - Proyectos</h1>
-                <div style="display:flex;gap:8px;align-items:center;">
-                    <button id="addProjectBtn" class="btn btn-primary">Agregar proyecto</button>
-                    <button id="logoutBtn" class="btn">Cerrar sesión</button>
-                </div>
-            </div>
-
-            <div id="projectsPanel">
-                <h2>Proyectos</h2>
-                <div id="projectsList">Cargando...</div>
-            </div>
-
-            <div id="projectForm" style="display:none;margin-top:16px;">
-                <h3 id="formTitle">Crear proyecto</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="proj-title">Título</label>
-                        <input id="proj-title" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="proj-desc">Descripción</label>
-                        <textarea id="proj-desc" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="proj-tech">Tecnologías (separadas por coma)</label>
-                        <input id="proj-tech" />
-                    </div>
-                    <div class="form-group">
-                        <label for="proj-repo">Repositorio (url)</label>
-                        <input id="proj-repo" />
-                    </div>
-                    <div style="display:flex;gap:8px;">
-                        <button id="saveProjectBtn" type="submit" class="btn btn-primary">Guardar</button>
-                        <button id="cancelProjectBtn" type="button" class="btn">Cancelar</button>
->>>>>>> 190b795d3046820cc23c0e011bad1801a38c586d
                     </div>
                 </form>
             </div>
