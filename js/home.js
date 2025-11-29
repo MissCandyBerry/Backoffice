@@ -15,17 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('✅ Usuario parseado:', user); // Debug
     }
   } catch (err) {
-    console.warn('No se pudo parsear localStorage. user, se usará objeto vacío', err);
+    console.warn('No se pudo parsear localStorage.user, se usará objeto vacío', err);
     user = {};
   }
 
+  const userId = user?.id || user?._id || null;
   console.log('👤 Usuario logueado final:', user); // Debug
-  console.log('📌 Usuario ID:', user.id); // Debug - busca el ID
+  console.log('📌 Usuario ID (para userId):', userId); // Debug
 
   const logoutBtn = document.getElementById('logoutBtn');
   logoutBtn && logoutBtn.addEventListener('click', () => { 
     localStorage.removeItem('authToken'); 
-    localStorage. removeItem('user'); 
+    localStorage.removeItem('user'); 
     window.location.href = 'index.html'; 
   });
 
@@ -49,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function escapeHtml(str) { 
-    if (! str) return ''; 
-    return String(str). replace(/[&<>"']/g, s => ({ 
+    if (!str) return ''; 
+    return String(str).replace(/[&<>"']/g, s => ({ 
       '&': '&amp;', 
       '<': '&lt;', 
       '>': '&gt;', 
@@ -62,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Abrir formulario
   addBtn && addBtn.addEventListener('click', () => {
     if (projectFormContainer) projectFormContainer.style.display = 'flex';
-    if (projectForm) projectForm. reset();
+    if (projectForm) projectForm.reset();
     formTitle.textContent = 'Crear proyecto';
     editingId = null;
   });
@@ -80,32 +81,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // Guardar proyecto
   projectForm && projectForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if (!userId) {
+      alert('No se encontró el ID de usuario. Vuelve a iniciar sesión.');
+      window.location.href = 'index.html';
+      return;
+    }
     
-    const title = document.getElementById('proj-title').value. trim();
+    const title = document.getElementById('proj-title').value.trim();
     const description = document.getElementById('proj-desc').value.trim();
     const technologies = document.getElementById('proj-tech').value
       .split(',')
-      . map(s => s.trim())
-      . filter(Boolean);
+      .map(s => s.trim())
+      .filter(Boolean);
     const repository = document.getElementById('proj-repo').value.trim();
     
-    // Procesar el campo de imágenes: convertir string separado por comas en array
-    const imagesInput = document.getElementById('proj-images'). value.trim();
+    // Procesar imágenes: string -> array de URLs válidas
+    const imagesInput = document.getElementById('proj-images').value.trim();
     const images = imagesInput
       .split(',')
-      . map(s => s.trim())
-      .filter(url => url && isValidHttpUrl(url)); // Solo URLs válidas
+      .map(s => s.trim())
+      .filter(url => url && isValidHttpUrl(url));
     
-    // ⭐ NUEVO: Agregar userId del usuario logueado
+    // Incluir userId (OBLIGATORIO según la API)
     const body = { 
       title, 
       description, 
+      userId,
       technologies, 
       repository,
       images
     };
     
-    console.log('📤 Enviando proyecto con userId:', user._id); // Debug
+    console.log('📤 Enviando proyecto con userId:', userId); // Debug
     console.log('📦 Body completo:', body); // Debug
     
     try {
@@ -130,13 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cargar proyectos
   async function loadProjects() {
     if (!projectsList) return;
-    projectsList.innerHTML = '<p class="loading">Cargando... </p>';
+    projectsList.innerHTML = '<p class="loading">Cargando...</p>';
     try {
       const projects = await API.getProjects();
       console.log('📥 Proyectos cargados desde API:', projects); // Debug
       
-      if (! Array.isArray(projects) || projects.length === 0) { 
-        projectsList.innerHTML = '<p class="no-projects">No hay proyectos registrados.  ¡Crea el primero!</p>'; 
+      if (!Array.isArray(projects) || projects.length === 0) { 
+        projectsList.innerHTML = '<p class="no-projects">No hay proyectos registrados. ¡Crea el primero!</p>'; 
         const pc = document.getElementById('projectCount');
         if (pc) pc.textContent = '0';
         return; 
@@ -147,9 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.createElement('div');
         el.className = 'project-card';
         
-        // Mostrar la primera imagen si existe y es URL válida
         const firstImage = (p.images && Array.isArray(p.images) && p.images.length > 0) 
-          ? p. images[0] 
+          ? p.images[0] 
           : null;
         const mediaHtml = (firstImage && isValidHttpUrl(firstImage)) 
           ? `<div class="project-card-media"><img src="${escapeHtml(firstImage)}" alt="${escapeHtml(p.title || '')}"></div>` 
@@ -164,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="project-description">${escapeHtml(p.description)}</p>
             <p class="project-tech"><strong>Tecnologías:</strong> ${escapeHtml((p.technologies || []).join(', ') || 'N/A')}</p>
             ${p.repository ? `<p class="project-repo"><a href="${escapeHtml(p.repository)}" target="_blank" rel="noopener noreferrer">📎 Repositorio</a></p>` : ''}
-            ${p. images && p.images.length > 1 ? `<p class="project-images-count">📸 ${p.images.length} imagen${p.images.length > 1 ? 's' : ''}</p>` : ''}
+            ${p.images && p.images.length > 1 ? `<p class="project-images-count">📸 ${p.images.length} imagen${p.images.length > 1 ? 's' : ''}</p>` : ''}
           </div>
           <div class="project-actions">
             <button class="btn btn-edit" data-id="${p._id}" aria-label="Editar proyecto">Editar</button>
@@ -175,13 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const pc = document.getElementById('projectCount');
-      if (pc) pc. textContent = String(projects.length);
+      if (pc) pc.textContent = String(projects.length);
 
-      // Event: Eliminar
+      // Eliminar
       projectsList.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', async () => {
           const id = btn.dataset.id;
-          if (! confirm('¿Estás seguro de que quieres eliminar este proyecto?')) return;
+          if (!confirm('¿Estás seguro de que quieres eliminar este proyecto?')) return;
           try { 
             await API.deleteProject(id); 
             alert('Proyecto eliminado');
@@ -192,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      // Event: Editar
+      // Editar
       projectsList.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', async () => {
           const id = btn.dataset.id;
@@ -207,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('proj-desc').value = project.description || '';
             document.getElementById('proj-tech').value = (project.technologies || []).join(', ');
             document.getElementById('proj-repo').value = project.repository || '';
-            // Cargar imágenes separadas por coma
             document.getElementById('proj-images').value = (project.images || []).join(', ');
             projectFormContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
           } catch (err) { 
