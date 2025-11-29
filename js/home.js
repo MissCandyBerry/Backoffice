@@ -1,22 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('authToken');
-  if (! token) { window.location.href = 'index.html'; return; }
+  if (!token) { 
+    window.location.href = 'index.html'; 
+    return; 
+  }
 
   let user = {};
   try {
     const rawUser = localStorage.getItem('user');
+    console.log('🔍 Raw user from localStorage:', rawUser); // Debug
+    
     if (rawUser && rawUser !== 'undefined' && rawUser !== 'null') {
       user = JSON.parse(rawUser);
+      console.log('✅ Usuario parseado:', user); // Debug
     }
   } catch (err) {
     console.warn('No se pudo parsear localStorage. user, se usará objeto vacío', err);
     user = {};
   }
 
+  console.log('👤 Usuario logueado final:', user); // Debug
+  console.log('📌 Usuario ID:', user.id); // Debug - busca el ID
+
   const logoutBtn = document.getElementById('logoutBtn');
   logoutBtn && logoutBtn.addEventListener('click', () => { 
     localStorage.removeItem('authToken'); 
-    localStorage.removeItem('user'); 
+    localStorage. removeItem('user'); 
     window.location.href = 'index.html'; 
   });
 
@@ -34,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const u = new URL(str);
       return u.protocol === 'http:' || u.protocol === 'https:';
-    } catch (e) { return false; }
+    } catch (e) { 
+      return false; 
+    }
   }
 
   function escapeHtml(str) { 
@@ -51,14 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Abrir formulario
   addBtn && addBtn.addEventListener('click', () => {
     if (projectFormContainer) projectFormContainer.style.display = 'flex';
-    if (projectForm) projectForm.reset();
+    if (projectForm) projectForm. reset();
     formTitle.textContent = 'Crear proyecto';
     editingId = null;
   });
 
   // Cerrar formulario
   const closeForm = () => {
-    if (projectFormContainer) projectFormContainer. style.display = 'none';
+    if (projectFormContainer) projectFormContainer.style.display = 'none';
     if (projectForm) projectForm.reset();
     editingId = null;
   };
@@ -85,13 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
       . map(s => s.trim())
       .filter(url => url && isValidHttpUrl(url)); // Solo URLs válidas
     
+    // ⭐ NUEVO: Agregar userId del usuario logueado
     const body = { 
       title, 
       description, 
       technologies, 
       repository,
-      images // Array de URLs
+      images
     };
+    
+    console.log('📤 Enviando proyecto con userId:', user._id); // Debug
+    console.log('📦 Body completo:', body); // Debug
     
     try {
       if (editingId) { 
@@ -118,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
     projectsList.innerHTML = '<p class="loading">Cargando... </p>';
     try {
       const projects = await API.getProjects();
+      console.log('📥 Proyectos cargados desde API:', projects); // Debug
+      
       if (! Array.isArray(projects) || projects.length === 0) { 
         projectsList.innerHTML = '<p class="no-projects">No hay proyectos registrados.  ¡Crea el primero!</p>'; 
         const pc = document.getElementById('projectCount');
@@ -178,13 +195,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Event: Editar
       projectsList.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', async () => {
-          const id = btn.dataset. id;
+          const id = btn.dataset.id;
           try {
-            const project = await API. request(`/projects/${id}`, { 
+            const project = await API.request(`/projects/${id}`, { 
               headers: { 'auth-token': token } 
             });
             editingId = id;
-            if (projectFormContainer) projectFormContainer.style. display = 'flex';
+            if (projectFormContainer) projectFormContainer.style.display = 'flex';
             formTitle.textContent = 'Editar proyecto';
             document.getElementById('proj-title').value = project.title || '';
             document.getElementById('proj-desc').value = project.description || '';
@@ -201,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (err) { 
       projectsList.innerHTML = '<p class="error-message">Error al cargar proyectos</p>'; 
-      console. error(err); 
+      console.error(err); 
     }
   }
 
